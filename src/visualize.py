@@ -15,12 +15,12 @@ def plot_quiver(phi):
     y = np.arange(1, phi.shape[1]-1)
     X, Y = np.meshgrid(x,y, indexing='ij')
     plt.imshow(phi, origin='lower', cmap='hot')
-    plt.quiver(Y, X, Ex, Ey, color='white')
+    plt.quiver(Y, X, Ey, Ex, color='white')
     plt.title('Electric Field from Potential')
     plt.show()
 
 def animate_solution(history):
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(8, 5))
     img = ax.imshow(history[0], cmap='inferno', origin='lower')
 
     def update(frame):
@@ -31,7 +31,9 @@ def animate_solution(history):
     ani = animation.FuncAnimation(
             fig, update, frames=len(history), interval=100, blit=True
             )
-
+    
+    ani.save('../plots/animation.gif', writer='pillow', fps=10, dpi=150)
     plt.show()
+
 
 
