@@ -23,7 +23,7 @@ phi\_{i,j} = \frac{1}{4} \bigl( \phi\_{i+1,j} + \phi\_{i-1,j} + \phi\_{i,j+1} + 
 ]
 
 
-## Example result (top_hot)
+## Example result (top_hot mode)
 
 
 # Heat map
@@ -48,3 +48,12 @@ The solver currently supports several boundary condition modes:
 - circle_hot – A circular hot region is placed at the center.
 
 - sinusoidal_hot – A sinusoidal temperature profile is applied along the top boundary.
+
+## To run the program, this following command
+'''
+python3 main.py --nx [enter number of grid x]  --ny [enter number of grid y] --mode [enter mode]
+'''
+for example:
+'''
+python3 main.py --nx 50 --ny 50 --mode center_hot
+'''
