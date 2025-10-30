@@ -1,4 +1,4 @@
-# laplace-solver-2d
+# laplace and poisson solver 2d
 
 Numerical solution of the **Laplace equation** using **Jacobi** and **Gauss Seidel** method
 
@@ -6,38 +6,60 @@ Numerical solution of the **Laplace equation** using **Jacobi** and **Gauss Seid
 ## Mathematical background
 
 ### The 2D Laplace equation
+
 $$
 \nabla^2 \phi = \frac{\partial^2 \phi}{\partial x^2} + \frac{\partial^2 \phi}{\partial y^2} = 0
 $$
 
 ### Finite difference discretization:
+
 $$
-\phi_{i,j} = \frac{1}{4} \big( \phi_{i+1,j} + \phi_{i-1,j} + \phi_{i,j+1} + \phi_{i,j-1} \big)
+\phi_{i,j} = \frac{1}{4} \bigl( \phi_{i+1,j} + \phi_{i-1,j} + \phi_{i,j+1} + \phi_{i,j-1} \bigr)
 $$
+
+## Poisson equation
+$$
+\nabla^2 \phi(x, y) = -S(x, y)
+$$
+Where:
+- $\phi(x, y)$ = temperature distribution
+- $S(x, y)$ = heat source term  
+  (positive values generate heat inside the domain)
+
+We discretize the Laplacian using **finite differences**:
+
+$$
+\phi_{i,j}^{new} = \frac{1}{4}\left(\phi_{i+1,j} + \phi_{i-1,j} +\phi_{i,j+1} + \phi_{i,j-1}-h^2 S_{i,j}\right)
+$$
+
+Where:
+- $h$ is the grid spacing (set to 1.0 in this implementation)
 
 ## Example result (top_hot mode)
 
 ### Heat map
 ![Heat map](plots/heatmap.png)
-
 ### vector field
 ![vector field](plots/vectorFields.png)
-
 ### Animation
 ![Heat map animation](/plots/animation.gif)
 
-The solver currently supports several boundary condition modes:
-- 'top_hot' – The top boundary of the plate is heated while other sides are kept at zero temperature.
-- 'center_hot' – A single hot point is placed at the center of the plate.
-- 'circle_hot' – A circular hot region is placed at the center.
-- 'sinusoidal_hot' – A sinusoidal temperature profile is applied along the top boundary.
+## poisson (circle_hot)
+### Animation
+![Poisson animation](/plots/poisson_animation.gif)
 
-## Usage
-To run the program, this following command
-'''bash
-python3 main.py --nx <enter number of grid x>  --ny <enter number of grid y> --mode <enter mode>
-'''
+
+The solver currently supports several boundary condition modes:
+- ``top_hot`` (laplace) – The top boundary of the plate is heated while other sides are kept at zero temperature.
+- ``center_hot`` (poisson) – A single hot point is placed at the center of the plate.
+- ``circle_hot`` (poisson) – A circular hot region is placed at the center.
+- ``sinusoidal_hot`` (laplace) – A sinusoidal temperature profile is applied along the top boundary.
+
+## To run the program, this following command
+```bash
+python3 main.py --nx [enter number of grid x]  --ny [enter number of grid y] --mode [enter mode]
+```
 for example:
-'''bash
+```bash
 python3 main.py --nx 50 --ny 50 --mode center_hot
-'''
+```
