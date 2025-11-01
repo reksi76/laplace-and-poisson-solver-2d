@@ -18,9 +18,11 @@ $$
 $$
 
 ## Poisson equation
+
 $$
 \nabla^2 \phi(x, y) = -S(x, y)
 $$
+
 Where:
 - $\phi(x, y)$ = temperature distribution
 - $S(x, y)$ = heat source term  
@@ -55,9 +57,9 @@ The solver currently supports several boundary condition modes:
 - ``circle_hot`` (poisson) – A circular hot region is placed at the center.
 - ``sinusoidal_hot`` (laplace) – A sinusoidal temperature profile is applied along the top boundary.
 
-## To run the program, this following command
+## To run the program, type this following command in the terminal:
 ```bash
-python3 main.py --nx [enter number of grid x]  --ny [enter number of grid y] --mode [enter mode]
+python3 main.py --solver[enter solver(default = gauss)] --nx [enter number of grid x (default = 50)]  --ny [enter number of grid y (default = 50)] --mode [enter mode (default = top_hot)]
 ```
 for example:
 ```bash

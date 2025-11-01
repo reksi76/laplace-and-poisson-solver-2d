@@ -3,10 +3,14 @@ import numpy as np
 import matplotlib.animation as animation
 from src.fields import compute_electric_field
 
-def plot_heatmap(phi):
+def plot_heatmap(phi, mode):
     plt.imshow(phi, origin='lower', cmap='hot')
     plt.colorbar(label='Tempetature')
-    plt.title('Laplace Equation Solution (2D)')
+    if mode in ['center_hot', 'circle_hot']:
+        plt.title('Poisson Equation Solution (2D)')
+    else:
+        plt.title('Laplace Equation Solution (2D)')
+    # plt.savefig('../plots/heatmap.png')
     plt.show()
 
 def plot_quiver(phi):
@@ -17,6 +21,7 @@ def plot_quiver(phi):
     plt.imshow(phi, origin='lower', cmap='hot')
     plt.quiver(Y, X, Ey, Ex, color='white')
     plt.title('Electric Field from Potential')
+    # plt.savefig('../plots/vectorFields.png')
     plt.show()
 
 def animate_solution(history):
@@ -32,7 +37,7 @@ def animate_solution(history):
             fig, update, frames=len(history), interval=100, blit=True
             )
     
-    ani.save('../plots/animation.gif', writer='pillow', fps=10, dpi=150)
+    # ani.save('../plots/animation.gif', writer='pillow', fps=10, dpi=150)
     plt.show()
 
 
