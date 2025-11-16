@@ -3,13 +3,20 @@ import numpy as np
 import matplotlib.animation as animation
 from src.fields import compute_electric_field
 
-def plot_heatmap(phi, mode):
+def plot_heatmap(phi, sim_type=None, mode=None):
     plt.imshow(phi, origin='lower', cmap='hot')
     plt.colorbar(label='Tempetature')
-    if mode in ['center_hot', 'circle_hot']:
-        plt.title('Poisson Equation Solution (2D)')
-    else:
-        plt.title('Laplace Equation Solution (2D)')
+    if sim_type == 'heat':
+        if mode == 'center_hot' or mode == 'circle_hot':
+            plt.title('Poisson Equation Solution (2D) (∇·(k∇φ) = -S)')
+        elif mode == 'top_hot' or mode == 'sinusoidal_hot':
+            plt.title('Laplace Equation Solution (2D) (∇²φ = 0)')
+        else:
+            plt.title('Heat Distribution')
+    elif sim_type ==  'cpu':
+        plt.title('CPU cooling simulation (Anisotropic Poisson)')
+
+
     # plt.savefig('../plots/heatmap.png')
     plt.show()
 
@@ -41,7 +48,7 @@ def animate_solution(history):
             fig, update, frames=len(history), interval=100, blit=True
             )
     
-    # ani.save('../plots/animation.gif', writer='pillow', fps=10, dpi=150)
+    # ani.save('../plots/poisson_animation.gif', writer='pillow', fps=10, dpi=150)
     plt.show()
 
 
