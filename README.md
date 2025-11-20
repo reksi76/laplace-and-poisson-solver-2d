@@ -2,6 +2,27 @@
 
 Numerical solution of the **Laplace equation** using **Jacobi** and **Gauss Seidel** method
 
+## Quick start
+### Laplace and Poisson program
+To run the program, type this following command in the terminal:
+```bash
+python3 main.py heat --solver[enter solver(default = gauss)] --nx [enter number of grid x (default = 50)]  --ny [enter number of grid y (default = 50)] --mode [enter mode (default = top_hot)]
+```
+for example:
+```bash
+python3 main.py heat --nx 50 --ny 50 --mode center_hot
+```
+
+The solver currently supports several boundary condition modes to simulate heat diffusion:
+- ``top_hot`` (laplace) – The top boundary of the plate is heated while other sides are kept at zero temperature.
+- ``center_hot`` (poisson) – A single hot point is placed at the center of the plate.
+- ``circle_hot`` (poisson) – A circular hot region is placed at the center.
+- ``sinusoidal_hot`` (laplace) – A sinusoidal temperature profile is applied along the top boundary.
+
+### CPU cooling simulation 
+```
+python3 main.py cpu --nx 100 --ny 100  
+```
 
 ## Mathematical background
 
@@ -17,7 +38,7 @@ $$
 \phi_{i,j} = \frac{1}{4} \bigl( \phi_{i+1,j} + \phi_{i-1,j} + \phi_{i,j+1} + \phi_{i,j-1} \bigr)
 $$
 
-## Poisson equation
+### Poisson equation
 
 $$
 \nabla^2 \phi(x, y) = -S(x, y)
@@ -37,7 +58,20 @@ $$
 Where:
 - $h$ is the grid spacing (set to 1.0 in this implementation)
 
-## Example result (top_hot mode)
+### CPU Cooling Simulation (poisson)
+Using poisson equation to simulate the heat diffusion in CPU
+
+$$
+\nabla \cdot (k(x,y) \nabla \phi) = -S(x, y)
+$$
+
+Where:
+- $\phi(x, y)$ = temperature distribution
+- $k(x, y)$ = thermal conductivity map (anisotropic)
+- $S(x, y)$ = heat source term (CPU die)
+
+
+## Example result (top_hot mode, nx = 100, ny = 100)
 
 ### Heat map
 ![Heat map](plots/heatmap.png)
@@ -50,18 +84,8 @@ Where:
 ### Animation
 ![Poisson animation](/plots/poisson_animation.gif)
 
+## CPU cooling simulation
+![CPU cooling simulation](/plots/cpu_animation.gif)
 
-The solver currently supports several boundary condition modes:
-- ``top_hot`` (laplace) – The top boundary of the plate is heated while other sides are kept at zero temperature.
-- ``center_hot`` (poisson) – A single hot point is placed at the center of the plate.
-- ``circle_hot`` (poisson) – A circular hot region is placed at the center.
-- ``sinusoidal_hot`` (laplace) – A sinusoidal temperature profile is applied along the top boundary.
 
-## To run the program, type this following command in the terminal:
-```bash
-python3 main.py --solver[enter solver(default = gauss)] --nx [enter number of grid x (default = 50)]  --ny [enter number of grid y (default = 50)] --mode [enter mode (default = top_hot)]
-```
-for example:
-```bash
-python3 main.py --nx 50 --ny 50 --mode center_hot
-```
+
